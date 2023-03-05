@@ -1,0 +1,25 @@
+#!/bin/bash
+# autor: github.com/felipepegoraro
+
+total_dir=$(
+  find . -maxdepth 1 -type d \
+  -not -regex "\.\($\|\/\.git\)" \
+  -regextype posix-egrep \
+  | wc -l
+)
+
+acc_compile=0
+
+for dir in */; do
+  cd $dir
+
+  if [ -f main.c ]; then
+    ((acc_compile++))
+    folder_name=${PWD##*/}
+    echo "[$acc_compile/$total_dir]: compilando: ${folder_name}"
+    gcc -Wall -Wextra -O2 -o ${folder_name}.out *.c
+  fi
+
+  cd ..
+done
+
