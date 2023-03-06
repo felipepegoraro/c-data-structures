@@ -1,5 +1,6 @@
 # c-data-structures
-A collection of data structures and algorithms written in C (and some in C++).
+A collection of data structures and algorithms written in C (and some in C++). 
+All `main.c` are test files.
 
 ### Installation/Usage
 
@@ -16,7 +17,7 @@ Alternatively, compile each one manually with:
 
 ```sh
 cd $name
-gcc -Wall -Wextra -O2 -o $name.out main.c $name.c
+gcc -Wall -Wextra -O2 -o $name.out main.c *.c
 ```
 
 ### Contributing
