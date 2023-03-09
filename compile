@@ -1,25 +1,55 @@
 #!/bin/bash
 # autor: github.com/felipepegoraro
+# compile all test.c (test files)
 
-total_dir=$(
-  find . -maxdepth 1 -type d \
-  -not -regex "\.\($\|\/\.git\)" \
-  -regextype posix-egrep \
-  | wc -l
-)
-
+total_dir=0
 acc_compile=0
 
-for dir in */; do
-  cd $dir
+get_total_of_dirs(){
+  total_dir=$(find . -maxdepth 1 -type d \
+    -not -regex "\.\($\|\/\.git\)" \
+    -regextype posix-egrep \
+    | wc -l
+  )
+}
 
-  if [ -f main.c ]; then
-    ((acc_compile++))
-    folder_name=${PWD##*/}
-    echo "[$acc_compile/$total_dir]: compilando: ${folder_name}"
-    gcc -Wall -Wextra -O2 -o ${folder_name}.out *.c
+clean(){
+  find . -name '*.out' -print0 | xargs -0 rm -f
+}
+
+compile_and_echo()
+{
+  local compiler=$1
+  ((acc_compile++))
+
+  local folder_name
+  folder_name=$(basename "$PWD")
+
+  echo "[$acc_compile/$total_dir]: compilando: $folder_name"
+  "$compiler" -Wall -Wextra -O2 -o "$folder_name".out ./*."$2"
+}
+
+main()
+{
+  if [ "$1" == "-c" ]; 
+  then
+    clean "$@"
+    echo "deleted: *.out"
+  else
+    get_total_of_dirs
+
+    for dir in */; do
+      cd "$dir" || exit
+
+      if [ -f test.c ]; then
+        compile_and_echo gcc c
+      elif [ -f test.cpp ]; then
+        compile_and_echo g++ cpp
+      fi
+
+      cd ..
+    done
   fi
+}
 
-  cd ..
-done
-
+main "$@"
