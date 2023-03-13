@@ -9,5 +9,6 @@ List *inicializa_pilha(void);
 void push(List *, int);
 int  pop(List *);
 void percorre_pilha(List *);
+void libera_pilha(List *);
 
 #endif // !PILHA

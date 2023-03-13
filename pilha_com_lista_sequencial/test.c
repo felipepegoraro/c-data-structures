@@ -21,8 +21,6 @@ int main(void)
   percorre_pilha(p);
 
   int p_0 = pop(p);
-  printf("%d\n", p_0);
-  (void) p_0;
   assert(p->length == 2);
   assert(p_0 == 30);
 
@@ -33,5 +31,7 @@ int main(void)
   assert(p_1 == 20);
 
   percorre_pilha(p);
+
+  libera_pilha(p);
   return 0;
 }

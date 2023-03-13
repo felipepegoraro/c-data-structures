@@ -19,7 +19,7 @@ void list_display(List *);
 void list_add(List *, int);
 bool list_set(List *, int, int);
 bool list_insert(List *, int, int);
-int list_remove(List*, int);
+int  list_remove(List *, int);
 void list_resize(List *, float);
 
 #endif // !LISTA_SEQUENCIAL

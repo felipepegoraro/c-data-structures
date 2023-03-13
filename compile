@@ -8,10 +8,12 @@ acc_compile=0
 ## pre-requisitos ============================================
 prepare_dir_p1() {
   cp ./lista_sequencial/lista.* ./pilha_com_lista_sequencial/.
+  cp ./lista_sequencial/lista.* ./fila_com_lista_sequencial/.
 }
 
 prepare_dir_p2() { 
   rm ./pilha_com_lista_sequencial/lista.*
+  rm ./fila_com_lista_sequencial/lista.*
 }
 ## pre-requisitos ============================================
 
@@ -37,7 +39,7 @@ compile_and_echo()
   local folder_name
   folder_name=$(basename "$PWD")
 
-  echo "[$acc_compile/$total_dir]: compilando: $folder_name"
+  echo "[$acc_compile/$total_dir]: compilando $folder_name"
   "$compiler" -Wall -Wextra -O2 -o "$folder_name".out ./*."$2"
 }
 ## funções auxiliares ========================================

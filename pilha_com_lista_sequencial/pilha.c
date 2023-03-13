@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <limits.h>
-
-#include "../lista_sequencial/lista.h"
+#include "./pilha.h"
 
 List *inicializa_pilha(void)
 {
@@ -24,4 +23,10 @@ int pop(List *pilha)
 void percorre_pilha(List *pilha)
 {
   list_display(pilha);
+}
+
+
+void libera_pilha(List *pilha)
+{
+  list_free(pilha);
 }
