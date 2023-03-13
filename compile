@@ -5,6 +5,18 @@
 total_dir=0
 acc_compile=0
 
+## pre-requisitos ============================================
+prepare_dir_p1() {
+  cp ./lista_sequencial/lista.* ./pilha_com_lista_sequencial/.
+}
+
+prepare_dir_p2() { 
+  rm ./pilha_com_lista_sequencial/lista.*
+}
+## pre-requisitos ============================================
+
+
+## funções auxiliares ========================================
 get_total_of_dirs(){
   total_dir=$(find . -maxdepth 1 -type d \
     -not -regex "\.\($\|\/\.git\)" \
@@ -28,7 +40,10 @@ compile_and_echo()
   echo "[$acc_compile/$total_dir]: compilando: $folder_name"
   "$compiler" -Wall -Wextra -O2 -o "$folder_name".out ./*."$2"
 }
+## funções auxiliares ========================================
 
+
+## função principal para compilar arquivos de teste =========
 main()
 {
   if [ "$1" == "-c" ]; 
@@ -51,5 +66,8 @@ main()
     done
   fi
 }
+## função principal para compilar arquivos de teste =========
 
+prepare_dir_p1
 main "$@"
+prepare_dir_p2

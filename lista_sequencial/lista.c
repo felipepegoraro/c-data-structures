@@ -2,14 +2,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 
-struct list {
-  int *items;
-  int size;
-  int length;
-};
-
-// tempo/espaço: O(1)
 List *list_create(void)
 { 
   List *list = (List *) malloc(sizeof(List));
@@ -108,10 +102,12 @@ bool list_insert(List *list, int index, int value)
 }
 
 // tempo: O(n) / espaço: O(1)
-bool list_remove(List *list, int index)
+int list_remove(List *list, int index)
 {
   if (index < 0 || index >= list->length)
-    return false;
+    return INT_MIN;
+
+  int ret = list->items[index];
 
   for (int i = index; i < list->length; i++)
     list->items[i] = list->items[i + 1];
@@ -119,5 +115,5 @@ bool list_remove(List *list, int index)
   if ((--list->length < MIN_SIZE && list->size > MIN_SIZE) || list->length == list->size/2)
     list_resize(list, 0.5f);
 
-  return true;
+  return ret;
 }
