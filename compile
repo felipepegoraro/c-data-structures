@@ -6,15 +6,8 @@ total_dir=0
 acc_compile=0
 
 ## pre-requisitos ============================================
-prepare_dir_p1() {
-  cp ./lista_sequencial/lista.* ./pilha_com_lista_sequencial/.
-  cp ./lista_sequencial/lista.* ./fila_com_lista_sequencial/.
-}
-
-prepare_dir_p2() { 
-  rm ./pilha_com_lista_sequencial/lista.*
-  rm ./fila_com_lista_sequencial/lista.*
-}
+# prepare_dir_p1() { }
+# prepare_dir_p2() { }
 ## pre-requisitos ============================================
 
 
@@ -70,6 +63,6 @@ main()
 }
 ## função principal para compilar arquivos de teste =========
 
-prepare_dir_p1
+# prepare_dir_p1
 main "$@"
-prepare_dir_p2
+# prepare_dir_p2

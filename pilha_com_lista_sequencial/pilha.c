@@ -1,32 +1,65 @@
-#include <stdio.h>
-#include <limits.h>
+#include <stdlib.h>
+#include <stdbool.h>
 #include "./pilha.h"
 
-List *inicializa_pilha(void)
+struct stack {
+  unsigned int size;
+  unsigned int length;
+  int *items;
+};
+
+Stack *stack_create(size_t size)
 {
-  return list_create();
+  Stack *stack  = (Stack *) malloc(sizeof(Stack));
+  stack->items  = (int *) malloc(sizeof(int) * (size+1));
+  stack->size   = size;
+  stack->length = 0;
+  return stack;
 }
 
-void push(List *pilha, int value)
+void stack_free(Stack *stack)
 {
-  list_add(pilha, value);
+  free(stack->items);
+  free(stack);
 }
 
-int pop(List *pilha)
+void stack_push(Stack *stack, int value)
 {
-  if (list_is_empty(pilha))
-    return INT_MIN;
-  int ret = list_remove(pilha, pilha->length - 1);
-  return ret;
+  if (stack_is_full(stack)) return;
+  stack->items[stack->length++] = value;
 }
 
-void percorre_pilha(List *pilha)
+int stack_pop(Stack *stack)
 {
-  list_display(pilha);
+  if (!stack_is_empty(stack))
+    return stack->items[--stack->length];
+  return NOT_FOUND;
 }
 
-
-void libera_pilha(List *pilha)
+int stack_peek(Stack *stack, unsigned int index)
 {
-  list_free(pilha);
+  if (index > stack->length)
+  {
+    fprintf(stderr, "not found!");
+    return NOT_FOUND;
+  }
+
+  return stack->items[index];
+}
+
+int stack_top(Stack *stack)
+{
+  if (!stack_is_empty(stack))
+    return stack->items[stack->length - 1];
+  return NOT_FOUND;
+}
+
+bool stack_is_full(Stack *stack)
+{
+  return stack->length == stack->size;
+}
+
+bool stack_is_empty(Stack *stack)
+{
+  return stack->length == 0;
 }

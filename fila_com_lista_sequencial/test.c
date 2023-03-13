@@ -1,27 +1,32 @@
 #include "./fila.h"
+#include <stdio.h>
 #include <assert.h>
 
 int main(void)
 {
-  Fila *f = inicializa_fila();
+  Queue *q = queue_create(5);
 
-  push(f, 10); assert(f->items[0] == 10);
-  push(f, 20); assert(f->items[1] == 20);
-  push(f, 30); assert(f->items[2] == 30);
+  queue_enqueue(q, 10);
+  queue_enqueue(q, 20);
 
-  percorre_fila(f);
+  assert(queue_dequeue(q)  == 10);
+  assert(queue_is_full(q)  == false);
+  assert(queue_is_empty(q) == false);
+  assert(queue_dequeue(q)  == 20);
+  assert(queue_is_empty(q) == true);
 
-  assert(pop(f) == 10);
-  percorre_fila(f);
+  queue_enqueue(q, 1);
+  queue_enqueue(q, 2);
+  queue_enqueue(q, 3);
+  queue_enqueue(q, 4);
+  queue_enqueue(q, 5);
 
-  push(f, 60); assert(f->items[2] == 60);
-  percorre_fila(f);
+  assert(queue_is_full(q) == true);
+  assert(queue_last(q)    == 5);
+  assert(queue_first(q)   == 1);
 
-  assert(pop(f) == 20);
-  assert(pop(f) == 30);
+  queue_free(q);
 
-  percorre_fila(f);
-
-  libera_fila(f);
+  printf("Ok\n");
   return 0;
 }

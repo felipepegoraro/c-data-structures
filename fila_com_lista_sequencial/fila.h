@@ -1,14 +1,19 @@
-#ifndef FILA
-#define FILA
+#ifndef FILA_H
+#define FILA_H
+#define NOT_FOUND -1
 
-#include "../lista_sequencial/lista.h"
+#include <stdbool.h>
+#include <stdlib.h>
 
-typedef List Fila;
+typedef struct queue Queue;
 
-Fila *inicializa_fila(void);
-void push(List *, int);
-int  pop(List *);
-void percorre_fila(List *);
-void libera_fila(List *);
+Queue *queue_create(size_t);
+void  queue_free(Queue *);
+void  queue_enqueue(Queue *, int value);
+int   queue_dequeue(Queue *);
+int   queue_first(Queue *);
+int   queue_last(Queue *);
+bool  queue_is_empty(Queue *);
+bool  queue_is_full(Queue *);
 
-#endif // !FILA
+#endif // !FILA_H

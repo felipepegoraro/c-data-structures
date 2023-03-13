@@ -1,14 +1,21 @@
-#ifndef PILHA
-#define PILHA
+#ifndef PILHA_H
+#define PILHA_H
 
-#include "../lista_sequencial/lista.h"
+#include <stdio.h>
+#include <stdbool.h>
 
-typedef struct list Pilha;
+#define NOT_FOUND -1
 
-List *inicializa_pilha(void);
-void push(List *, int);
-int  pop(List *);
-void percorre_pilha(List *);
-void libera_pilha(List *);
+typedef struct stack Stack;
 
-#endif // !PILHA
+bool stack_is_full(Stack *);
+bool stack_is_empty(Stack *);
+
+Stack *stack_create(size_t);
+void  stack_push(Stack *, int);
+int   stack_pop(Stack *);
+int   stack_peek(Stack *, unsigned int);
+int   stack_top(Stack *);
+void stack_free(Stack *);
+
+#endif // !PILHA_H

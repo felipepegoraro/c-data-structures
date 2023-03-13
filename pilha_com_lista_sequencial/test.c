@@ -1,37 +1,21 @@
-#include "./pilha.h"
-#include <assert.h>
 #include <stdio.h>
+#include <assert.h>
+#include "./pilha.h"
 
 int main(void)
 {
-  Pilha *p = inicializa_pilha();
+  Stack *p = stack_create(10);
 
-  push(p, 10);
-  assert(p->items[0] == 10);
-  assert(p->length == 1);
+  stack_push(p, 1);
+  stack_push(p, 2);
 
-  percorre_pilha(p);
+  stack_push(p, 3);
+  assert(stack_pop(p) == 3);
 
-  push(p, 20);
-  assert(p->items[1] == 20);
+  assert(stack_peek(p, 0) == 1);
+  assert(stack_peek(p, 1) == 2);
 
-  push(p, 30);
-  assert(p->items[2] == 30);
-
-  percorre_pilha(p);
-
-  int p_0 = pop(p);
-  assert(p->length == 2);
-  assert(p_0 == 30);
-
-  percorre_pilha(p);
-
-  int p_1 = pop(p);
-  assert(p->length == 1);
-  assert(p_1 == 20);
-
-  percorre_pilha(p);
-
-  libera_pilha(p);
+  printf("Ok\n");
+  stack_free(p);
   return 0;
 }
