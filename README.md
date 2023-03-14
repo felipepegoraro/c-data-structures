@@ -4,7 +4,7 @@ All `main.c` are test files.
 
 ### Installation/Usage
 
-Clone the repository and compile all at once:
+Clone the repository and compile all (test files) at once:
 
 ```sh
 git clone https://github.com/felipepegoraro/c-data-structures/
