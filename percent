@@ -1,0 +1,28 @@
+#!/bin/bash
+# author: github.com/felipepegoraro
+# about.: view the number/percentage of lines 
+#         for each programming language.
+
+test -x ~/.cargo/bin/loc && {
+  lines=$(( $(loc | wc -l) - 4))
+  loc --exclude "\.md" \
+  | sed -n "4,${lines}p" \
+  | awk '
+  BEGIN {
+    total     = 0;
+    cpp_c_sum = 0;
+    shell_sum = 0;
+  }
+  {
+    if ($1 ~ /^(C|C\+\+|C\/C\+\+)$/)
+      cpp_c_sum += $NF;
+    else if ($1 == "Bourne")
+      shell_sum += $NF;
+    total += $NF
+  }
+  END {
+    perc = total/100
+    printf("C/C++: %4d (%04.1f%%)\n", cpp_c_sum, cpp_c_sum/perc); 
+    printf("Shell: %4d (%04.1f%%)\n", shell_sum, shell_sum/perc);
+  }'
+}

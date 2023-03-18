@@ -2,8 +2,7 @@
 A collection of data structures and algorithms written in C (and some in C++). 
 All `main.c` are test files.
 
-### Installation/Usage
-
+### Testing
 Clone the repository and compile all (test files) at once:
 
 ```sh
@@ -17,7 +16,7 @@ Alternatively, compile each one manually with:
 
 ```sh
 cd $name
-gcc -Wall -Wextra -O2 -o $name.out main.c *.c
+gcc -Wall -Wextra -O2 -o $name.out test.c *.c
 ```
 
 ### Contributing
