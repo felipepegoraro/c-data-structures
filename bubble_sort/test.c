@@ -30,7 +30,7 @@ int main(void)
   assert(arr3[3] == 4);
   assert(arr3[4] == 5);
 
-  printf("testes executados com sucesso!\n");
+  printf("bubble sort funcionou corretamente\n");
 
   return 0;
 }

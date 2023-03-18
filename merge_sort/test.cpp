@@ -16,7 +16,7 @@ void test(void)
   assert(arr[5] == 13);
 
   display(arr, n);
-  std::cout << "Merge Sort funcionou corretamente." << std::endl;
+  std::cout << "merge sort funcionou corretamente." << std::endl;
 }
 
 int main(void)

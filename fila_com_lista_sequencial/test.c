@@ -27,6 +27,6 @@ int main(void)
 
   queue_free(q);
 
-  printf("Ok\n");
+  printf("fila usando lista sequencial funcionando corretamente\n");
   return 0;
 }

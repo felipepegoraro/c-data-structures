@@ -15,7 +15,8 @@ int main(void)
   assert(stack_peek(p, 0) == 1);
   assert(stack_peek(p, 1) == 2);
 
-  printf("Ok\n");
   stack_free(p);
+
+  printf("pilha com lista sequencial funcionando corretamente\n");
   return 0;
 }

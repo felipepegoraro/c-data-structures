@@ -1,7 +1,7 @@
 /*
   author: Felipe S. Pegoraro
-  date: March 16th, 2023
-  about: implementation of a generic linked list class in C++
+  date..: march 16th, 2023
+  about.: implementation of a generic linked list class in C++
   source: github.com/felipepegoraro/c-data-structures/
 */
 
@@ -125,7 +125,7 @@ bool List<T>::remove_last(void)
 
 
 // verify if value exists (using linear search)
-// todo: convert from O(n) to O(log n) if its possible
+// TODO: convert from O(n) to O(log n) if its possible
 template <typename T>
 bool List<T>::contains(T value)
 {
@@ -140,9 +140,9 @@ bool List<T>::contains(T value)
   
   return false;
 }
-    
 
-// getters: length, head and tail value
+
+// getter: length
 template <typename T>
 size_t List<T>::get_length(void) { return length; }
 
@@ -153,6 +153,8 @@ T List<T>::get_head_value(void)
   return head->value;
 }
 
+
+// getter: tail
 template <typename T>
 T List<T>::get_tail_value(void)
 {
@@ -163,6 +165,8 @@ T List<T>::get_tail_value(void)
   return current->value;
 }
 
+
+// aux fn: display the value of all elements
 template <typename T>
 void List<T>::display(void)
 {
@@ -181,4 +185,40 @@ void List<T>::display(void)
 
 }
 
-// TODO: void reverse(void)
+
+// reverse the order
+template <typename T>
+void List<T>::reverse(void)
+{
+  if (is_empty()) return;
+
+  Node<T> *current  = head;
+  Node<T> *previous = nullptr;
+  Node<T> *next     = head->next;
+
+  while (current != nullptr)
+  {
+    next = current->next;
+    current->next = previous;
+    previous = current;
+    current = next;
+  }
+
+  head = previous;
+}
+
+// getter: value by index
+template <typename T>
+T List<T>::get_value_by_index(size_t index)
+{
+  if (is_empty() || index >= length) return -1;
+  if (index == 0) return head->value;
+  if (index < 0) return -2;
+
+  Node<T> *current = head;
+
+  for (size_t i = 0; i < index; i++)
+    current = current->next;
+
+  return current->value;
+}
