@@ -211,9 +211,8 @@ void List<T>::reverse(void)
 template <typename T>
 T List<T>::get_value_by_index(size_t index)
 {
-  if (is_empty() || index >= length) return -1;
+  if (is_empty() || index >= length) return T();
   if (index == 0) return head->value;
-  if (index < 0) return -2;
 
   Node<T> *current = head;
 

@@ -2,8 +2,8 @@
 # author: github.com/felipepegoraro
 # about.: find all TODO staments in \.(c|cpp|h) files
 
-find . -regex '.*\.\(c.*\|h\)$'\
-  | xargs grep -oPi "(?<=(//|/\*) TODO: ).*"\
+find . -regex '.*\.\(c.*\|h\)$' -print0 \
+  | xargs -0 grep -oPi "(?<=(//|/\*) TODO: ).*"\
   | sed -E 's/^(.*):/\1: /'\
   | awk -F ':' '{printf "%-40s %s\n", $1":", $2}'\
   | cat -n | sed -E 's/^\s+([0-9]+)\s+/\1 /g'
