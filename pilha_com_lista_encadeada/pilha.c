@@ -24,29 +24,52 @@ Stack* stack_create(int size)
   return pilha;
 }
 
-void stack_free(Stack* stack)
+// void stack_free(Stack* stack)
+// {
+//   if (stack_is_empty(stack))
+//   {
+//     free(stack);
+//     return;
+//   }
+//
+//   if (stack->length == 1)
+//   {
+//     free(stack->first);
+//     free(stack);
+//     return;
+//   }
+//
+//   Node *aux = stack->first;
+//   Node *current = aux;
+//
+//   while (current != NULL){
+//     current = aux->next;
+//     free(aux);
+//     aux = current;
+//   }
+//
+//   
+//   stack->first = NULL;
+//   stack->last = NULL;
+//   stack->length = 0;
+//   stack->size = 0;
+//
+//   free(stack);
+//   return;
+// }
+
+void stack_free(Stack *stack)
 {
-  if (stack_is_empty(stack)){
-    free(stack);
-    return;
+  Node *current = stack->first;
+  while (current != NULL) {
+    Node *temp = current;
+    current = current->next;
+    free(temp);
   }
-
-  if (stack->length == 1){
-    free(stack->first);
-    free(stack);
-    return;
-  }
-
-  Node *aux = stack->first;
-  Node *current = aux;
-
-  while (current != NULL){
-    current = aux->next;
-    free(aux);
-    aux = current;
-  }
-
-  return;
+  stack->first = NULL;
+  stack->last = NULL;
+  stack->length = 0;
+  stack->size = 0;
 }
 
 int stack_push(Stack* stack, int value){
@@ -135,4 +158,23 @@ int stack_first(Stack *stack)
   return stack_is_empty(stack)
   ? false
   : stack->first->value;
+}
+
+void stack_reverse(Stack *stack)
+{
+  if (stack_is_empty(stack)) return;
+
+  Node *current  = stack->first;
+  Node *previous = NULL;
+  Node *next     = current->next;
+
+  while (current != NULL)
+  {
+    next = current->next;
+    current->next = previous;
+    previous = current;
+    current = next;
+  }
+
+  stack->first = previous;
 }

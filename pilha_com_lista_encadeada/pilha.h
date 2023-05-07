@@ -17,5 +17,6 @@ int stack_top(Stack *stack);
 int stack_first(Stack *stack);
 int stack_is_empty(Stack *stack);
 int stack_is_full(Stack *stack);
+void stack_reverse(Stack *stack);
 
 #endif // !PILHA_LISTA_ENCADEADA

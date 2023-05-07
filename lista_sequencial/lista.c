@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <limits.h>
 
+// TODO: exemplo adicionado pro printkkkkk
+
 List *list_create(void)
 { 
   List *list = (List *) malloc(sizeof(List));
