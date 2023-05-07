@@ -18,7 +18,7 @@ void list_display(List *list);
 void list_display_reverse(List *list);
 bool list_is_empty(List *list);
 
-// TODO: implementação da função a seguir
+// TODO: implementação da função da list_reverse
 // void list_reverse(List *list);
 
 #endif // !DOUBLE_LINKED
