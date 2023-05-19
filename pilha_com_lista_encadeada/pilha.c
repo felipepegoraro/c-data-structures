@@ -24,45 +24,12 @@ Stack* stack_create(int size)
   return pilha;
 }
 
-// void stack_free(Stack* stack)
-// {
-//   if (stack_is_empty(stack))
-//   {
-//     free(stack);
-//     return;
-//   }
-//
-//   if (stack->length == 1)
-//   {
-//     free(stack->first);
-//     free(stack);
-//     return;
-//   }
-//
-//   Node *aux = stack->first;
-//   Node *current = aux;
-//
-//   while (current != NULL){
-//     current = aux->next;
-//     free(aux);
-//     aux = current;
-//   }
-//
-//   
-//   stack->first = NULL;
-//   stack->last = NULL;
-//   stack->length = 0;
-//   stack->size = 0;
-//
-//   free(stack);
-//   return;
-// }
-
 void stack_free(Stack *stack)
 {
   Node *current = stack->first;
+  Node *temp = current;
   while (current != NULL) {
-    Node *temp = current;
+    temp = current;
     current = current->next;
     free(temp);
   }
@@ -73,7 +40,8 @@ void stack_free(Stack *stack)
 }
 
 int stack_push(Stack* stack, int value){
-  if(stack_is_full(stack)) return false;
+  if(stack_is_full(stack)) 
+    return false;
    
   stack->length++;
    

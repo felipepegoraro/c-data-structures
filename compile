@@ -32,7 +32,7 @@ compile_and_echo()
   local folder_name
   folder_name=$(basename "$PWD")
 
-  echo "[$acc_compile/$total_dir]: compilando $folder_name"
+  printf "[%2.d/%2.d]: compilando %s\n" $acc_compile $total_dir $folder_name
   "$compiler" -Wall -Wextra -O2 -o "$folder_name".out ./*."$2"
 }
 ## funções auxiliares ========================================

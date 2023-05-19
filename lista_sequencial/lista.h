@@ -4,6 +4,7 @@
 #include <stdbool.h>
 
 #define MIN_SIZE 5
+#define NOT_FOUND -1
 
 typedef struct list {
   int *items;
@@ -21,5 +22,8 @@ bool list_set(List *, int, int);
 bool list_insert(List *, int, int);
 int  list_remove(List *, int);
 void list_resize(List *, float);
+
+int  list_linear_search(List *, int value);
+int  list_binary_search(List *, int value);
 
 #endif // !LISTA_SEQUENCIAL

@@ -4,8 +4,6 @@
 #include <stdlib.h>
 #include <limits.h>
 
-// TODO: exemplo adicionado pro printkkkkk
-
 List *list_create(void)
 { 
   List *list = (List *) malloc(sizeof(List));
@@ -107,7 +105,7 @@ bool list_insert(List *list, int index, int value)
 int list_remove(List *list, int index)
 {
   if (index < 0 || index >= list->length)
-    return INT_MIN;
+    return NOT_FOUND;
 
   int ret = list->items[index];
 
@@ -118,4 +116,32 @@ int list_remove(List *list, int index)
     list_resize(list, 0.5f);
 
   return ret;
+}
+
+int  list_linear_search(List *list, int value)
+{
+  for (int i=0; i<list->length; ++i)
+    if (list->items[i] == value)
+      return i;
+  return NOT_FOUND;
+}
+
+int  list_binary_search(List *list, int value)
+{
+  int left = 0;
+  int right = list->length - 1;
+  int mid  = 0;
+  int res  = 0;
+
+  while (left <= right)
+  {
+    mid = (left+right)/2;
+    res = list->items[mid];
+
+    if (res > value) right = mid - 1;
+    else if (res < value) left = mid + 1;
+    else return mid;
+  }
+
+  return NOT_FOUND;
 }

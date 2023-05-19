@@ -1,4 +1,5 @@
 #include "./pilha.h"
+#include <stdio.h>
 #include <assert.h>
 
 int main(void)
@@ -30,6 +31,7 @@ int main(void)
   stack_free(f);
 
   assert(stack_is_empty(f) == true);
+  printf("pilha com lista encadeada funcionando corretamente\n");
 
   return 0;
 }

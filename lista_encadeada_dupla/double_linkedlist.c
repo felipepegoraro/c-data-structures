@@ -38,7 +38,7 @@ void list_free(List *list)
   Node *current = list->first;
   Node *aux = current;
 
-  while (current != list->last)
+  while (current != NULL)
   {
     aux = current;
     current = current->next;
@@ -46,11 +46,11 @@ void list_free(List *list)
     free(aux);
   }
 
+  // free(list);
+
   list->length = 0;
   list->first  = NULL;
   list->last   = NULL;
-
-  free(list);
 }
 
 
@@ -75,6 +75,7 @@ void list_add(List *list, int value)
 }
 
 
+// O(n)
 int list_get(List *list, int index)
 {
   if (index < 0 || list_is_empty(list)) return NOT_FOUND;
@@ -233,6 +234,64 @@ void list_display_reverse(List *list)
 bool list_is_empty(List *list)
 {
   return list->length == 0 || list->first == NULL;
+}
+
+
+int list_linear_search(List *list, int value)
+{
+  int count = 0;
+  Node *current = list->first;
+
+  while (current != NULL && current->data != value)
+  {
+    current = current->next;
+    count++;
+  }
+
+  if (current == NULL)
+    return NOT_FOUND;
+
+  return count;
+}
+
+int wrapper_list_sequential_search(Node* node, int value, int index){
+  if (node == NULL) return NOT_FOUND;
+  if (node->data == value) return index;
+  return wrapper_list_sequential_search(node->next, value, ++index); 
+}
+
+// O(n)
+int list_recursive_sequential_search(List *list, int item){
+  return wrapper_list_sequential_search(list->first, item, 0);
+}
+
+// O(n * log(n))
+int list_binary_search(List *list, int value) {
+  int res   = 0;
+  int left  = 0;
+  int right = list->length - 1;
+
+  if (list->first->data == value) return 0;
+  if (list->last->data  == value) return list->length - 1;
+
+  while (left <= right)
+  {
+    int mid = (left + right) / 2;
+    int count = 0;
+    Node *current = list->first;
+
+    while (count < mid) {
+      current = current->next;
+      res = current->data;
+      count++;
+    }
+
+    if (res == value) return mid;
+    else if (res < value) left = mid + 1;
+    else right = mid - 1;
+  }
+
+  return NOT_FOUND;
 }
 
 
