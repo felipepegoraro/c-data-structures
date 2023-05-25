@@ -295,4 +295,61 @@ int list_binary_search(List *list, int value) {
 }
 
 
+
+void aux_merge(List *l, int L, int M, int R)
+{
+  int i, j, k;
+  int nl1 = M - L + 1;
+  int nr1 = R - M;
+
+  List *left = list_create();
+  List *right = list_create();
+
+  for (i = 0; i < nl1; i++)
+    list_add(left, list_get(l, L + i));
+
+  for (i = 0; i < nr1; i++)
+    list_add(right, list_get(l, M + 1 + i));
+
+  i = j = 0;
+  k = L;
+
+  while (i < nl1 && j < nr1)
+  {
+    if (list_get(left, i) <= list_get(right, j))
+      list_set(l, k, list_get(left, i++));
+    else
+      list_set(l, k, list_get(right, j++));
+    k++;
+  }
+
+  while (i < nl1) list_set(l, k++, list_get(left, i++));
+  while (j < nr1) list_set(l, k++, list_get(right, j++));
+
+  list_free(left);
+  list_free(right);
+}
+
+void aux_merge_sort(List *l, int L, int R)
+{
+  if (L < R)
+  {
+    int med = L + (R - L) / 2;
+    aux_merge_sort(l, L, med);
+    aux_merge_sort(l, med + 1, R);
+    aux_merge(l, L, med, R);
+  }
+}
+
+void list_merge_sort(List *l)
+{
+  aux_merge_sort(l, 0, l->length - 1);
+}
+
+
+
+
+
+
+
 // void list_reverse(List *list);

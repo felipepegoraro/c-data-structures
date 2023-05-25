@@ -65,6 +65,21 @@ int main(void)
   assert(list_is_empty(bt));
   // --------------------------------------
 
+
+  // --------------------------------------
+  List *merge_test = list_create();
+  list_add(merge_test, 9);
+  list_add(merge_test, 4);
+  list_add(merge_test, 7);
+  list_add(merge_test, 2);
+  list_add(merge_test, 1);
+  list_add(merge_test, 6);
+  list_display(merge_test);
+  list_merge_sort(merge_test);
+  list_display(merge_test);
+
+  // --------------------------------------
+
   printf("lista encadeada dupla funcionou corretamente\n");
 
   return 0;

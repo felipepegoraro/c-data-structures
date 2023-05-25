@@ -22,6 +22,9 @@ int  list_linear_search(List *list, int value);
 int  list_recursive_sequential_search(List *list, int item);
 int  list_binary_search(List *list, int value);
 
+// TODO: implementação da função list_merge_sort
+void list_merge_sort(List *l);
+
 // TODO: implementação da função da list_reverse
 // void list_reverse(List *list);
 
