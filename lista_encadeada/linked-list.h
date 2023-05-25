@@ -1,44 +1,27 @@
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 
-#include <iostream>
+#include <stdio.h>
+#include <stdbool.h>
 
-template <typename T>
-struct Node {
-  T value;
-  Node<T> *next;
+typedef struct node Node;
+typedef struct list List;
 
-  Node(T v) :  value(v), next(nullptr){}
-};
+List *create(void);
+void clear(List *list);
+void add(List *list, int value);
+int get_first_value(List *list);
+int get_tail_value(List *list);
+void display(List *list);
+void reverse(List *list);
+int get(List *list,size_t index);
+void set(List *list, size_t index, int value);
+void insertion_sort(List *list);
+bool remove_by_index(List *list, size_t index);
+bool remove_last(List *list);
+bool is_empty(List *list);
+bool contains(List *list, int value);
+size_t get_length(List *l);
+bool insert(List *list, int value, size_t index);
 
-template <typename T>
-class List {
-  private:
-    std::string name;
-    Node<T> *head;
-    size_t length;
-
-  public:
-    List(const std::string& name) :
-      name(name),
-      head(nullptr),
-      length(0){}
-
-    ~List(void);
-
-    void clear(void);
-    bool is_empty(void);
-    void add(T value);
-    bool insert(T value, size_t index);
-    bool remove(size_t index);
-    bool remove_last(void);
-    bool contains(T value);
-    size_t get_length(void);
-    T get_head_value(void);
-    T get_tail_value(void);
-    void display(void);
-    void reverse(void);
-    T get_value_by_index(size_t);
-};
-
-#endif // !LINKED_LIST_H
+#endif //! LINKED_LIST_H
