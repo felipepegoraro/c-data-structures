@@ -19,6 +19,7 @@ void list_display_reverse(List *list);
 bool list_is_empty(List *list);
 int  list_get_length(List *list);
 int *list_linked_to_array(List *list);
+List *list_array_to_linked_list(int *arr, int size);
 
 int  list_linear_search(List *list, int value);
 int  list_recursive_sequential_search(List *list, int item);

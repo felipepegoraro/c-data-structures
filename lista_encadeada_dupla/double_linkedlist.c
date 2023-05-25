@@ -268,6 +268,31 @@ int *list_linked_to_array(List *list)
   return arr;
 }
 
+List* list_array_to_linked_list(int* arr, int size) {
+  if (arr == NULL || size == 0) return NULL;
+
+  List* list = (List*) malloc(sizeof(List));
+  list->length = size;
+  list->first = NULL;
+  list->last = NULL;
+
+  for (int i = 0; i < size; i++)
+  {
+    Node* newnode = (Node*) malloc(sizeof(Node));
+    newnode->data = arr[i];
+    newnode->next = NULL;
+    newnode->prev = list->last;
+
+    if (i == 0) list->first = newnode;
+    else list->last->next = newnode;
+
+    list->last = newnode;
+  }
+
+  return list;
+}
+
+
 
 // algoritmos ===============================================
 int list_linear_search(List *list, int value)
@@ -281,9 +306,7 @@ int list_linear_search(List *list, int value)
     count++;
   }
 
-  if (current == NULL)
-    return NOT_FOUND;
-
+  if (current == NULL) return NOT_FOUND;
   return count;
 }
 
@@ -329,35 +352,31 @@ int list_binary_search(List *list, int value) {
 }
 
 
-// VERSAO ANTERIOR ----------------------------
-// a versão anterior de list_merge_sort usava
-// as funçoes list_get e list_set e, geralmente,
-// dentro de um loop for de tamanho n. ao meu 
-// ver a segunda forma (convertendo para array)
-// parece ser levemente mais eficiente apesar de
-// ter a mesma complexidade de tempo. se quiser,
-// faça testes com a versão antiga (acesse o
-// commit 280c560 para vê-la).
-
 // VERSAO NOVA -------------------------------
-void aux_merge(List *l, int L, int M, int R)
-{
+// O(n)
+void aux_merge(List* l, int L, int M, int R) {
   int i, j, k;
   int nl1 = M - L + 1;
   int nr1 = R - M;
   int len = l->length;
-  int *mylist = list_linked_to_array(l);
-  int *left = (int*) malloc(nl1 * sizeof(int));
-  int *right = (int*) malloc(nr1 * sizeof(int));
+  int* mylist = (int*)malloc(len * sizeof(int));
+  Node* current = l->first;
 
-  if (!(left && right))
-  {
+  for (i = 0; i < len; i++) {
+    mylist[i] = current->data;
+    current = current->next;
+  }
+
+  int* left = (int*)  malloc(nl1 * sizeof(int));
+  int* right = (int*) malloc(nr1 * sizeof(int));
+
+  if (!(left && right)) {
     perror("erro: malloc\n");
     exit(EXIT_FAILURE);
   }
 
-  for (i = 0; i < nl1; i++) left[i]  = mylist[L+i];
-  for (i = 0; i < nr1; i++) right[i] = mylist[M+1+i];
+  for (i = 0; i < nl1; i++) left[i] = mylist[L + i];
+  for (i = 0; i < nr1; i++) right[i] = mylist[M + 1 + i];
 
   i = j = 0;
   k = L;
@@ -372,19 +391,21 @@ void aux_merge(List *l, int L, int M, int R)
   while (i < nl1) mylist[k++] = left[i++];
   while (j < nr1) mylist[k++] = right[j++];
 
-  for (int i = 0; i < len; i++)
-    list_set(l, i, mylist[i]);
+  current = l->first;
+  for (i = 0; i < len; i++)
+  {
+    current->data = mylist[i];
+    current = current->next;
+  }
 
   free(left);
   free(right);
   free(mylist);
 }
 
-
-void aux_merge_sort(List *l, int L, int R)
-{
-  if (L < R)
-  {
+// O(n * log(n))
+void aux_merge_sort(List* l, int L, int R) {
+  if (L < R) {
     int med = L + (R - L) / 2;
     aux_merge_sort(l, L, med);
     aux_merge_sort(l, med + 1, R);
@@ -392,10 +413,12 @@ void aux_merge_sort(List *l, int L, int R)
   }
 }
 
-void list_merge_sort(List *l)
-{
+// O(n * log(n))
+void list_merge_sort(List* l) {
   aux_merge_sort(l, 0, l->length - 1);
 }
+
+
 
 // algoritmos ===============================================
 
