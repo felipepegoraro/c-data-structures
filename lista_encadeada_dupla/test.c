@@ -1,9 +1,11 @@
 #include "./double_linkedlist.h"
 #include <assert.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 int main(void)
 {
+  // testando o adt básico ----------------
   List *l = list_create();
   assert(list_is_empty(l));
 
@@ -42,9 +44,10 @@ int main(void)
   list_free(l);
 
   assert(list_is_empty(l));
-
-
   // --------------------------------------
+  
+
+  // testando o binary search -------------
   List *bt = list_create();
   assert(list_is_empty(bt));
 
@@ -66,21 +69,23 @@ int main(void)
   // --------------------------------------
 
 
-  // --------------------------------------
-  List *merge_test = list_create();
-  list_add(merge_test, 9);
-  list_add(merge_test, 4);
-  list_add(merge_test, 7);
-  list_add(merge_test, 2);
-  list_add(merge_test, 1);
-  list_add(merge_test, 6);
-  list_display(merge_test);
-  list_merge_sort(merge_test);
-  list_display(merge_test);
+  // testando merge sort ------------------
+  int    unor_arr[] = {9,4,7,2,1,6};
+  int correct_arr[] = {1,2,4,6,7,9};
+  int    arr_length = sizeof(correct_arr)/sizeof(int);
 
+  List *tmerge = list_create();
+
+  for (int i=0; i<arr_length; ++i)
+    list_add(tmerge, unor_arr[i]);
+
+  list_merge_sort(tmerge);
+
+  for (int i=0; i<arr_length; ++i)
+    assert(list_get(tmerge, i) == correct_arr[i]);
   // --------------------------------------
+
 
   printf("lista encadeada dupla funcionou corretamente\n");
-
-  return 0;
+  return(EXIT_SUCCESS);
 }
