@@ -1,15 +1,14 @@
-#include <iostream>
-#include <vector>
-#include <cassert>
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
 
-#include "./merge-sort.h"
+#include "./merge_sort.h"
 
 void display(int *A, size_t size)
 {
-  std::cout << "[";
   for (size_t i = 0; i < size-1; i++)
-    std::cout << A[i] << ", ";
-  std::cout << A[size-1] << "]\n";
+    printf("%d ", A[i]);
+  printf("%d \n", A[size-1]);
 }
 
 void merge(int *A, int l, int m, int r)
@@ -21,11 +20,8 @@ void merge(int *A, int l, int m, int r)
 
    int L[nleft], R[nright];
    
-   for(i = 0; i < nleft; i++)
-     L[i] = A[l+i];
-
-   for(j = 0; j < nright; j++)
-     R[j] = A[m+1+j];
+   for(i = 0; i < nleft; i++) L[i] = A[l+i];
+   for(j = 0; j < nright; j++) R[j] = A[m+1+j];
 
    i = j = 0; 
    k = l;

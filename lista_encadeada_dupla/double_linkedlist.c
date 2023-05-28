@@ -354,42 +354,38 @@ int list_binary_search(List *list, int value) {
 
 // VERSAO NOVA -------------------------------
 // O(n)
-void aux_merge(List* l, int L, int M, int R) {
+void aux_merge(List* l, int L, int M, int R){
   int i, j, k;
-  int nl1 = M - L + 1;
-  int nr1 = R - M;
+  int nleft = M - L + 1;
+  int nright = R - M;
   int len = l->length;
-  int* mylist = (int*)malloc(len * sizeof(int));
+  int* mylist = (int*) malloc(len * sizeof(int));
   Node* current = l->first;
 
-  for (i = 0; i < len; i++) {
+  for (i = 0; i < len; i++)
+    {
     mylist[i] = current->data;
     current = current->next;
   }
 
-  int* left = (int*)  malloc(nl1 * sizeof(int));
-  int* right = (int*) malloc(nr1 * sizeof(int));
+  int left[nleft];
+  int right[nright];
 
-  if (!(left && right)) {
-    perror("erro: malloc\n");
-    exit(EXIT_FAILURE);
-  }
-
-  for (i = 0; i < nl1; i++) left[i] = mylist[L + i];
-  for (i = 0; i < nr1; i++) right[i] = mylist[M + 1 + i];
+  for (i = 0; i < nleft; i++) left[i] = mylist[L + i];
+  for (i = 0; i < nright; i++) right[i] = mylist[M + 1 + i];
 
   i = j = 0;
   k = L;
 
-  while (i < nl1 && j < nr1)
+  while (i < nleft && j < nright)
   {
     if (left[i] <= right[j]) mylist[k] = left[i++];
     else mylist[k] = right[j++];
     k++;
   }
 
-  while (i < nl1) mylist[k++] = left[i++];
-  while (j < nr1) mylist[k++] = right[j++];
+  while (i < nleft) mylist[k++] = left[i++];
+  while (j < nright) mylist[k++] = right[j++];
 
   current = l->first;
   for (i = 0; i < len; i++)
@@ -398,13 +394,11 @@ void aux_merge(List* l, int L, int M, int R) {
     current = current->next;
   }
 
-  free(left);
-  free(right);
   free(mylist);
 }
 
 // O(n * log(n))
-void aux_merge_sort(List* l, int L, int R) {
+void aux_merge_sort(List* l, int L, int R){
   if (L < R) {
     int med = L + (R - L) / 2;
     aux_merge_sort(l, L, med);
@@ -414,7 +408,7 @@ void aux_merge_sort(List* l, int L, int R) {
 }
 
 // O(n * log(n))
-void list_merge_sort(List* l) {
+void list_merge_sort(List *l){
   aux_merge_sort(l, 0, l->length - 1);
 }
 

@@ -35,13 +35,10 @@ bool list_is_full(List *list)
 // tempo: O(n) / espaço: O(1)
 void list_display_aux(List *list)
 {
-  int i;
   printf("[ ");
-
-  for (i = 0; i < list->length - 1; i++)
-    printf("%d, ", list->items[i]);
-
-  printf("%d ]\n", list->items[i]);
+  for (int i=0; i<list->length;++i)
+    printf("%d ", list->items[i]);
+  printf("]\n");
 }
 
 
@@ -144,4 +141,46 @@ int  list_binary_search(List *list, int value)
   }
 
   return NOT_FOUND;
+}
+
+
+
+
+
+void aux_merge(List *list, int L, int M, int R) {
+  int i, j, k;
+  int nleft  = M - L + 1;
+  int nright = R - M;
+
+  int left[nleft];
+  int right[nright];
+
+  for (i = 0; i < nleft; i++)   left[i] = list->items[L + i];
+  for (j = 0; j < nright; j++) right[j] = list->items[M + 1 + j];
+
+  i = j = 0;
+  k = L;
+
+  while (i < nleft && j < nright)
+  {
+    if (left[i] <= right[j]) list->items[k++] = left[i++];
+    else list->items[k++] = right[j++];
+  }
+
+  while (i < nleft)  list->items[k++] = left[i++];
+  while (j < nright) list->items[k++] = right[j++];
+}
+
+void aux_merge_sort(List *list, int L, int R) {
+  if (L < R)
+  {
+    int med = L + (R - L) / 2;
+    aux_merge_sort(list, L, med);
+    aux_merge_sort(list, med + 1, R);
+    aux_merge(list, L, med, R);
+  }
+}
+
+void list_merge_sort(List *list){
+  aux_merge_sort(list, 0, list->length-1);
 }

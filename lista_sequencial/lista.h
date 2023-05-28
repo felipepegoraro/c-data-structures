@@ -25,5 +25,6 @@ void list_resize(List *, float);
 
 int  list_linear_search(List *, int value);
 int  list_binary_search(List *, int value);
+void list_merge_sort(List *list);
 
 #endif // !LISTA_SEQUENCIAL
