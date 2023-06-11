@@ -84,18 +84,18 @@ int list_binary_search(List *list, int value) {
 
 
 // O(n^2)
-void list_bubble_sort(List *list){
+void list_bubble_sort(List *list)
+{
   if (!(list && list->first)) return;
   Node *current = list->first;
 
-  while (current) {
-    Node *min = current;
-    Node *next = min->next;
-
-    while (next) {
+  while (current)
+  {
+    Node *next = current->next;
+    while (next)
+    {
       if (current->data > next->data)
         swap_data(current, next);
-      min = next;
       next = next->next;
     }
     current = current->next;

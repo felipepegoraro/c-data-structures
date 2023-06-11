@@ -21,9 +21,5 @@ int  get_tail_value(List *list);
 void display(List *list);
 int  get(List *list,size_t index);
 void set(List *list, size_t index, int value);
-void reverse(List *list);
 
 #endif //! LINKED_LIST_H
-
-
-// TODO: todos algoritmos do linked list

@@ -214,25 +214,3 @@ void set(List *list, size_t index, int value) {
 
   current->value = value;
 }
-
-
-
-// reverse the order
-void reverse(List *list)
-{
-  if (is_empty(list)) return;
-
-  Node *current  = list->first;
-  Node *previous = NULL;
-  Node *next     = list->first->next;
-
-  while (current != NULL)
-  {
-    next = current->next;
-    current->next = previous;
-    previous = current;
-    current = next;
-  }
-
-  list->first = previous;
-}
