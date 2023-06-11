@@ -1,6 +1,6 @@
 # c-data-structures
-A collection of data structures and algorithms written in C (and some in C++). 
-All `main.c` are test files.
+A collection of data structures and algorithms written in C. 
+All `test.c` are test files.
 
 ### Testing
 Clone the repository and compile all (test files) at once:
