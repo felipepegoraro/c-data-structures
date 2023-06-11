@@ -2,6 +2,7 @@
 #include <assert.h>
 
 #include "./lista.h"
+#include "./algorithms.h"
 
 int main(void)
 {

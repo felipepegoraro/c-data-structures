@@ -183,6 +183,40 @@ void display(List *list)
 }
 
 
+
+// getter: value by index
+int get(List *list, size_t index)
+{
+  if (is_empty(list) || index >= list->length) return -1;
+  if (index == 0) return list->first->value;
+
+  Node *current = list->first;
+
+  for (size_t i = 0; i < index; i++)
+    current = current->next;
+
+  return current->value;
+}
+
+
+
+// value setter
+void set(List *list, size_t index, int value) {
+  if (index >= list->length) return;
+
+  Node *current = list->first;
+  size_t currentIndex = 0;
+
+  while (currentIndex < index) {
+    current = current->next;
+    currentIndex++;
+  }
+
+  current->value = value;
+}
+
+
+
 // reverse the order
 void reverse(List *list)
 {
@@ -201,65 +235,4 @@ void reverse(List *list)
   }
 
   list->first = previous;
-}
-
-// getter: value by index
-int get(List *list, size_t index)
-{
-  if (is_empty(list) || index >= list->length) return -1;
-  if (index == 0) return list->first->value;
-
-  Node *current = list->first;
-
-  for (size_t i = 0; i < index; i++)
-    current = current->next;
-
-  return current->value;
-}
-
-
-// value setter
-void set(List *list, size_t index, int value) {
-  if (index >= list->length) return;
-
-  Node *current = list->first;
-  size_t currentIndex = 0;
-
-  while (currentIndex < index) {
-    current = current->next;
-    currentIndex++;
-  }
-
-  current->value = value;
-}
-
-// algorithm: insertion sort
-void insertion_sort(List *list)
-{
-  Node *current = list->first;
-  Node *next = NULL;
-  Node *sorted = NULL;
-
-  while (current != NULL)
-  {
-    next = current->next;
-
-    if (sorted == NULL || sorted->value >= current->value)
-    {
-      current->next = sorted;
-      sorted = current;
-    }
-    else
-    {
-      Node *temp = sorted;
-      while (temp->next != NULL && current->value > temp->next->value)
-        temp = temp->next;
-      current->next = temp->next;
-      temp->next = current;
-    }
-
-    current = next;
-  }
-
-  list->first = sorted;
 }

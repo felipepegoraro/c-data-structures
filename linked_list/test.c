@@ -42,7 +42,8 @@ void test_list_operations(void) {
   clear(list);
 }
 
-int main(void) {
+int main(void) 
+{
   test_list_operations();
   printf("lista encadeada funcionando corretamente\n");
   return 0;

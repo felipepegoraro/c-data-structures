@@ -18,7 +18,7 @@ void list_display(List *list);
 void list_display_reverse(List *list);
 bool list_is_empty(List *list);
 
-// TODO: implementação da função da list_reverse circular
-// void list_reverse(List *list);
+// TODO: implementação ADT básico circular
+// TODO: implementação da função da list_reverse
 
 #endif // !CIRCULAR_LINKED

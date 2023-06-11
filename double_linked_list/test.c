@@ -1,4 +1,5 @@
 #include "./double_linkedlist.h"
+#include "./algorithms.h"
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
