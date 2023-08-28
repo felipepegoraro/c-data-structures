@@ -87,6 +87,16 @@ int main(void)
   // --------------------------------------
 
 
+
+  List *l_ev_od = list_create();
+  for (int i=0; i<10; i++)
+    list_add(l_ev_od, i);
+  list_display(l_ev_od);
+  separate_odd_even(l_ev_od, 9);
+  list_display(l_ev_od);
+
+
+
   printf("lista encadeada dupla funcionou corretamente\n");
   return(EXIT_SUCCESS);
 }

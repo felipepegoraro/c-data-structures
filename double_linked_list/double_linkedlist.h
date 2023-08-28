@@ -3,6 +3,7 @@
 #define NOT_FOUND -1
 
 #include <stdbool.h>
+#include <stdio.h>
 
 typedef struct node Node;
 typedef struct list List;
@@ -18,5 +19,6 @@ void list_display(List *list);
 void list_display_reverse(List *list);
 bool list_is_empty(List *list);
 int  list_get_length(List *list);
+void separate_odd_even(List *l, size_t n);
 
 #endif // !DOUBLE_LINKED

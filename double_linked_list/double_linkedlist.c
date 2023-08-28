@@ -239,7 +239,57 @@ bool list_is_empty(List *list)
   return list->length == 0 || list->first == NULL;
 }
 
+
 int list_get_length(List *list)
 {
   return list->length;
+}
+
+
+void separate_odd_even(List *l, size_t n)
+{
+  if (n <= 1) return;
+
+  List *even = list_create();
+  List *odd = list_create();
+  List *newlist = list_create();
+
+  Node *current = l->first;
+
+  while (current != NULL)
+  {
+    if (current->data % 2 == 0){
+      list_add(even, current->data);
+    } else {
+      list_add(odd, current->data);
+    }
+    current = current->next;
+  }
+
+  current = odd->first;
+  for (int i=0; i < odd->length; i++)
+  {
+    list_add(newlist, current->data);
+    current = current->next;
+  }
+
+  current = even->first;
+  for (int i=0; i < even->length; i++)
+  {
+    list_add(newlist, current->data);
+    current = current->next;
+  }
+
+  current = newlist->first;
+  Node *original_current = l->first;
+  for (size_t i = 0; i < n; i++)
+  {
+    original_current->data = current->data;
+    current = current->next;
+    original_current = original_current->next;
+  }
+
+  list_free(even);
+  list_free(odd);
+  list_free(newlist);
 }
