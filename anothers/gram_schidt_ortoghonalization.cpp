@@ -2,14 +2,12 @@
 #include <vector>
 #include <cmath>
 #include <cassert>
+#include <numeric>
 
 // Produto escalar $$e_1 \cdot e_2 = \sum_{i=0}^{n} e_{1_i}\cdot e_{2_i}$$
 template <typename T>
-T dot_product(const std::vector<T>& e1, const std::vector<T>& e2){
-  T result = 0;
-  for (size_t k = 0; k < e1.size(); k++)
-    result += e1[k] * e2[k];
-  return result;
+T dot_product(const std::vector<T>& e1, const std::vector<T>& e2) {
+  return std::inner_product(e1.begin(), e1.end(), e2.begin(), T(0));
 }
 
 // Subtração por vetor escalado $$result_i = e_{1_i} - scalar \times e_{2_{i}}$$
@@ -50,12 +48,12 @@ std::vector<std::vector<T>> gram_schmidt_orthogonalization(
 
     for (size_t i = 0; i < j; i++)
     {
-      T dp = dot_product(result[j], result[i]);
+      T dp = dot_product(B[j], result[i]);
       result[j] = subtract_scaled_vector(result[j], result[i], dp);
     }
 
     T norm_squared = dot_product(result[j], result[j]);
-    T norm = std::sqrt(norm_squared);
+    T norm = (norm_squared > 0) ? std::sqrt(norm_squared) : 1.0;
 
     for (size_t k = 0; k < B[0].size(); k++)
       result[j][k] /= norm;
@@ -63,6 +61,7 @@ std::vector<std::vector<T>> gram_schmidt_orthogonalization(
 
   return result;
 }
+
 
 template <typename T>
 void matrix_print(const std::vector<std::vector<T>>& mat){
