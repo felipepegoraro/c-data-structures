@@ -126,7 +126,6 @@ void bst_remove(Tree *tree, int value){
 }
 
 
-
 void bst_helper_weird_print(Node *node){
   if (node != NULL){
     printf("%d", node->value);
@@ -209,6 +208,20 @@ void bst_transversal_pos_order(const Tree *tree){
 }
 
 
+void bst_transversal(const Tree *tree, enum Transversal type)
+{
+  switch (type)
+  {
+    case Pre: bst_transversal_pre_order(tree); break;
+    case In:   bst_transversal_in_order(tree); break;
+    case Pos: bst_transversal_pos_order(tree); break;
+    default: {
+      return;
+    }
+  }
+}
+
+
 /*
  * pub fn minimum(&self) -> Option<&T> {
  *   match &self.left {
@@ -276,6 +289,45 @@ int bst_floor(const Tree *tree, int n) {
 }
 
 
+int bst_hlp_predecessor(Node *node, int n, int *max_pred) {
+  if (node == NULL) return *max_pred;
+  if (node->value < n) return bst_hlp_predecessor(node->right, n, &node->value);
+  else return bst_hlp_predecessor(node->left, n, max_pred);
+}
+
+int bst_predecessor(const Tree *tree, int n) {
+  if (tree == NULL || tree->root == NULL) 
+    return ERR;
+  int max_pred = ERR;
+  return bst_hlp_predecessor(tree->root, n, &max_pred);
+}
+
+
+int hlp_height_of(Node *node){
+  if (node == NULL) return ERR;
+  int mx_left  = hlp_height_of(node->left);
+  int mx_right = hlp_height_of(node->right);
+  return MAX(mx_left, mx_right)+1;
+}
+int bst_height(const Tree *tree){
+  return (tree != NULL && tree->root != NULL)
+    ? hlp_height_of(tree->root)
+    : ERR;
+}
+
+
+int hlp_depth_of(Node *node, int value, int depth){
+  if (node == NULL) return ERR;
+  if (node->value == value) return depth;
+  else if (node->value < value) return hlp_depth_of(node->right, value, depth+1);
+  else return hlp_depth_of(node->left, value, depth+1);
+}
+
+int bst_depth_of(const Tree *tree, int value){
+  return (tree != NULL && tree->root != NULL)
+    ? hlp_depth_of(tree->root, value, 0)
+    : ERR;
+}
 
 
 void bst_assert_properties(

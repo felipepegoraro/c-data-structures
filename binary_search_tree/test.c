@@ -14,6 +14,19 @@
  *        1   3 6   10
  *                  / \
  *                 9  11
+ *
+ *  (5L(2L(1)R(3))R(7L(6)R(10L(9)R(11))))
+ *
+ *  raiz: 5
+ *  |  L do 5 -> 2
+ *  |  |  L do 2 -> 1
+ *  |  |  R do 2 -> 3
+ *  |  R do 5 -> 7
+ *  |  |  L do 7 -> 6
+ *  |  |  R do 7 -> 10
+ *  |  |  |  L do 10 -> 9
+ *  |  |  |  R do 10 -> 11
+ *
 */
 
 
@@ -63,6 +76,18 @@ int main(void)
   assert(bst_floor(t, 8) == 7);
   assert(bst_floor(t, 5) == 5);
   assert(bst_floor(t, 12) == 11);
+  assert(bst_predecessor(t, 11) == 10);
+  assert(bst_predecessor(t, 2) == 1);
+  assert(bst_predecessor(t, 1) == ERR);
+  assert(bst_height(t) == 3);
+  assert(bst_depth_of(t, 5) == 0);
+  assert(bst_depth_of(t, 7) == 1);
+  assert(bst_depth_of(t, 3) == 2);
+  assert(bst_depth_of(t, 11) == bst_height(t));
+
+  bst_transversal(t, Pre);
+  bst_transversal(t, In);
+  bst_transversal(t, Pos);
 
   bst_remove(t, 2);
   bst_assert_properties(t, 2, false, 1, 11);
@@ -89,7 +114,9 @@ int main(void)
   bst_assert_properties(t, 5, false, 3, 11);
   bst_weird_transversal(t); // (6L(3)R(11))
 
+  assert(bst_height(t) == 1);
   bst_free(t);
+  assert(bst_height(t) == ERR);
   printf("binary search tree funcionando corretamente!\n");
   return(EXIT_SUCCESS);
 }
