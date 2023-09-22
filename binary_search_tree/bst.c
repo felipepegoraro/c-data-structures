@@ -1,6 +1,7 @@
 #include "./bst.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 
 struct node {
   int value;
@@ -81,7 +82,7 @@ bool hlp_bst_search(Node *node, int value){
   return false;
 }
 
-bool bst_search(Tree *tree, int value)
+bool bst_search(const Tree *tree, int value)
 {
   return hlp_bst_search(tree->root, value);
 }
@@ -161,7 +162,7 @@ void hlp_bst_transversal_pre_order(Node *node){
     hlp_bst_transversal_pre_order(node->right);
   }
 }
-void bst_transversal_pre_order(Tree *tree){
+void bst_transversal_pre_order(const Tree *tree){
   if (tree->root != NULL){
     printf("(");
     hlp_bst_transversal_pre_order(tree->root);
@@ -179,7 +180,7 @@ void hlp_bst_transversal_in_order(Node *node){
     hlp_bst_transversal_in_order(node->right);
   }
 }
-void bst_transversal_in_order(Tree *tree){
+void bst_transversal_in_order(const Tree *tree){
   if (tree->root != NULL){
     printf("(");
     hlp_bst_transversal_in_order(tree->root);
@@ -197,7 +198,7 @@ void hlp_bst_transversal_pos_order(Node *node){
     printf("%d, ", node->value);
   }
 }
-void bst_transversal_pos_order(Tree *tree){
+void bst_transversal_pos_order(const Tree *tree){
   if (tree->root != NULL){
     printf("(");
     hlp_bst_transversal_pos_order(tree->root);
@@ -205,4 +206,88 @@ void bst_transversal_pos_order(Tree *tree){
   } else {
     printf("()\n");
   }
+}
+
+
+/*
+ * pub fn minimum(&self) -> Option<&T> {
+ *   match &self.left {
+ *     Some(node) => node.minimum(),
+ *     None => self.value.as_ref(),
+ *   }
+ * }
+*/
+int hlp_minimum(Node *node){
+  return (node->left != NULL) 
+    ? hlp_minimum(node->left)
+    : node->value;
+}
+int bst_minimum(const Tree *tree){
+  return (tree->root != NULL)
+    ? hlp_minimum(tree->root)
+    : ERR;
+}
+
+
+int hlp_maximum(Node *node){
+  return (node->right != NULL) 
+    ? hlp_maximum(node->right)
+    : node->value;
+}
+int bst_maximum(const Tree *tree){
+  return (tree->root != NULL)
+    ? hlp_maximum(tree->root)
+    : ERR;
+}
+
+
+int hlp_bst_ceil(Node *node, int n) {
+  if (node == NULL) return ERR;
+  int v = node->value;
+  if (v == n) return v;
+  else if (v < n) return hlp_bst_ceil(node->right, n);
+  else {
+    int left_ceil = hlp_bst_ceil(node->left, n);
+    return (left_ceil != ERR) ? left_ceil : v;
+  }
+}
+
+int bst_ceil(const Tree *tree, int n) {
+  return (tree != NULL && tree->root != NULL) 
+    ? hlp_bst_ceil(tree->root, n)
+    : ERR;
+}
+
+
+int hlp_bst_floor(Node *node, int n) {
+  if (node == NULL) return ERR;
+  int v = node->value;
+  if (v == n) return v;
+  else if (v > n) return hlp_bst_floor(node->left, n);
+  else {
+    int right_floor = hlp_bst_floor(node->right, n);
+    return (right_floor != ERR) ? right_floor : v;
+  }
+}
+int bst_floor(const Tree *tree, int n) {
+  return (tree != NULL && tree->root != NULL) 
+    ? hlp_bst_floor(tree->root, n)
+    : ERR;
+}
+
+
+
+
+void bst_assert_properties(
+  const Tree *t,
+  const int search_n,
+  const bool has_n,
+  const int minimum,
+  const int maximum
+){
+  assert(
+    bst_search(t, search_n) == has_n 
+    && bst_minimum(t) == minimum
+    && bst_maximum(t) == maximum
+  );
 }
